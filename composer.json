@@ -1,0 +1,10 @@
+{
+    "name": "mu/php-mvc-core",
+    "authors": [
+        {
+            "name": "Maria-cpp",
+            "email": "maria.naseem@mediapark.pk"
+        }
+    ],
+    "require": {}
+}
