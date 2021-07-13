@@ -8,7 +8,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "zum\\phpmvc": "./"
+            "zum\\phpmvc\\": "./"
         }
     },
     "require": {}
