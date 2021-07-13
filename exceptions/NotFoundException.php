@@ -1,6 +1,6 @@
 <?php
 
-namespace app\core\exceptions;
+namespace zum\phpmvc\exceptions;
 
 use http\Exception;
 

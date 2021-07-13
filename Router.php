@@ -1,8 +1,8 @@
 <?php
 
-namespace app\core;
+namespace zum\phpmvc;
 
-use app\core\exceptions\NotFoundException;
+use zum\phpmvc\exceptions\NotFoundException;
 
 class Router
 {
@@ -42,7 +42,7 @@ class Router
             return Application::$app->view->renderView($callback);
         }
         if (is_array($callback)) {
-            /** @var \app\core\Controller $controller */
+            /** @var \zum\phpmvc\Controller $controller */
             $controller = new $callback[0]();
             Application::$app->controller = $controller;
             $controller->action = $callback[1];

@@ -1,12 +1,12 @@
 <?php
 
 
-namespace app\core\middlewares;
+namespace zum\phpmvc\middlewares;
 
 
-use app\core\Application;
-use app\core\exceptions\ForbiddenException;
-use app\core\exceptions\NotFoundException;
+use zum\phpmvc\Application;
+use zum\phpmvc\exceptions\ForbiddenException;
+use zum\phpmvc\exceptions\NotFoundException;
 
 class AuthMiddleware extends BaseMiddleware
 {
