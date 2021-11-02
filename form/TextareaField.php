@@ -4,8 +4,18 @@
 namespace zum\phpmvc\form;
 
 
+use zum\phpmvc\Model;
+
 class TextareaField extends BaseField
 {
+    public const TYPE_TEXT = 'text';
+    public const TYPE_TITLE = 'title';
+
+    public function __construct(Model $model, string $attribute)
+    {
+        $this->type = self::TYPE_TEXT;
+        parent::__construct($model, $attribute);
+    }
 
     public function renderInput(): string
     {

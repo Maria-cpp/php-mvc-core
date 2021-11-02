@@ -40,4 +40,7 @@ abstract class BaseField
             $this->model->getFirstError($this->attribute)
         );
     }
+    public function setAttribute($attribute){
+        $this->attribute=$attribute;
+    }
 }
