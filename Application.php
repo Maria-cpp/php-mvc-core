@@ -89,6 +89,9 @@ class Application
 
         $this->user=null;
         $this->session->remove('user');
+        $this->session->remove('role');
+        session_destroy();
+
     }
     
     public function __destruct()

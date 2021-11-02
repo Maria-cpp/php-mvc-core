@@ -27,6 +27,11 @@ class Controller
         return Application::$app->view->renderView($view, $params);
     }
 
+    public function renderAdmin($view, $params = [])
+    {
+        return Application::$app->view->renderAdmin($view, $params);
+    }
+
     public function registerMiddleware(BaseMiddleware $middleware){
         $this->middlewares[] = $middleware;
     }

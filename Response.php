@@ -12,7 +12,7 @@ class Response
 
     public function redirect(string $url)
     {
-        header('location:http://localhost:7800'.$url);
+        header('Location: '.$url);
     }
 
 }
