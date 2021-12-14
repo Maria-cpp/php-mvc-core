@@ -20,15 +20,13 @@ abstract class DbModel extends Model
         $attributes = $this->attributes();
         $params = array_map(fn($attr) => ":$attr", $attributes);
 
-        // can be used in both ways
-
-        /*  $statement = self::prepare("INSERT INTO $tableName(" . implode(',', $attributes) . ")
+        $statement = static::prepare("INSERT INTO $tableName(" . implode(',', $attributes) . ")
             VALUES(" . implode(',', $params) . ")");
         foreach ($attributes as $attribute) {
             $statement->bindValue(":$attribute", $this->{$attribute});
-        }*/
-        $statement = Application::$app->db->pdo->prepare("INSERT INTO $tableName(" . implode(',', $attributes) . ")
-            VALUES('" . $this->{firstname} . "'" . ",'" . $this->{lastname} . "','" . $this->{email} . "','" . $this->{password} . "','" . $username . "');");
+        }
+        // $statement = Application::$app->db->pdo->prepare("INSERT INTO $tableName(" . implode(',', $attributes) . ")
+        //     VALUES('" . $this->{firstname} . "'" . ",'" . $this->{lastname} . "','" . $this->{email} . "','" . $this->{password} . "','" . $username . "');");
 
         $statement->execute();
         return true;

@@ -8,8 +8,8 @@ use zum\phpmvc\Model;
 
 class Form
 {
-    public static function begin($action, $method){
-        echo sprintf('<form action="%s" method="%s">', $action, $method);
+    public static function begin($action, $method, $enctype="application/x-www-form-urlencoded"){
+        echo sprintf('<form action="%s" method="%s" enctype="%s">', $action, $method, $enctype);
         return new Form();
     }
 

@@ -13,6 +13,8 @@ abstract class Model
     public const RULE_MAX = 'max';
     public const RULE_MATCH = 'match';
     public const RULE_UNIQUE = 'unique';
+    public const RULE_IMAGE_SIZE = 'size';
+    public const RULE_IMAGE_TYPE = 'type';
 
     abstract public function rules(): array;
 
@@ -63,6 +65,14 @@ abstract class Model
                     $rule['match'] =$this->getLabel($rule['match']);
                     $this->addErrorForRule($attribute, self::RULE_MATCH, $rule);
                 }
+                if($ruleName === self::RULE_IMAGE_SIZE && $value!== $this->{$rule['size']}){
+                    $rule['RULE_IMAGE_SIZE'] =$this->getLabel($rule['RULE_IMAGE_SIZE']);
+                    $this->addErrorForRule($attribute, self::RULE_IMAGE_SIZE, $rule);
+                }
+                if($ruleName === self::RULE_IMAGE_TYPE && in_array($value,["jpeg", "jpg", "png"])){
+                    $rule['RULE_IMAGE_TYPE'] =$this->getLabel($rule['RULE_IMAGE_TYPE']);
+                    $this->addErrorForRule($attribute, self::RULE_IMAGE_TYPE, $rule);
+                }
                 if($ruleName === self::RULE_UNIQUE){
                     $className = $rule['class'];
                     $uniqueAttr = $rule['attribute'] ?? $attribute;
@@ -103,7 +113,9 @@ abstract class Model
             self::RULE_MIN => 'Min Length of this field must be {min}',
             self::RULE_MAX => 'Max Length of this field must be {max}',
             self::RULE_MATCH => 'This field must be the same as {match}',
-            self::RULE_UNIQUE => 'Record with this {field} already exists'
+            self::RULE_UNIQUE => 'Record with this {field} already exists',
+            self::RULE_IMAGE_SIZE =>'image size is more than defined size of 2MB',
+            self::RULE_IMAGE_TYPE => 'only jpeg, jpg & png image formats are acceptable'
         ];
     }
     public function hasError($attribute){
