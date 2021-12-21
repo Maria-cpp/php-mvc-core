@@ -1,8 +1,6 @@
 <?php
 
-
 namespace zum\phpmvc;
-
 
 abstract class Model
 {
@@ -16,6 +14,9 @@ abstract class Model
     public const RULE_IMAGE_SIZE = 'size';
     public const RULE_IMAGE_TYPE = 'type';
 
+    public array $errors = [];
+
+
     abstract public function rules(): array;
 
     public function loadData($data)
@@ -27,18 +28,20 @@ abstract class Model
         }
     }
 
+    public function errors(): array
+    {
+        return $this->errors;
+    }
+
     public function labels(): array
     {
         return [];
     }
 
-
     public function getLabel($attribute)
     {
         return $this->labels()[$attribute] ?? $attribute;
     }
-
-    public array $errors = [];
 
     public function validate(): bool
     {
@@ -65,14 +68,7 @@ abstract class Model
                     $rule['match'] =$this->getLabel($rule['match']);
                     $this->addErrorForRule($attribute, self::RULE_MATCH, $rule);
                 }
-                if($ruleName === self::RULE_IMAGE_SIZE && $value!== $this->{$rule['size']}){
-                    $rule['RULE_IMAGE_SIZE'] =$this->getLabel($rule['RULE_IMAGE_SIZE']);
-                    $this->addErrorForRule($attribute, self::RULE_IMAGE_SIZE, $rule);
-                }
-                if($ruleName === self::RULE_IMAGE_TYPE && in_array($value,["jpeg", "jpg", "png"])){
-                    $rule['RULE_IMAGE_TYPE'] =$this->getLabel($rule['RULE_IMAGE_TYPE']);
-                    $this->addErrorForRule($attribute, self::RULE_IMAGE_TYPE, $rule);
-                }
+               
                 if($ruleName === self::RULE_UNIQUE){
                     $className = $rule['class'];
                     $uniqueAttr = $rule['attribute'] ?? $attribute;
@@ -90,7 +86,7 @@ abstract class Model
         return empty($this->errors);
     }
 
-    private function addErrorForRule(string $attribute, string $rule, $params=[])
+    public function addErrorForRule(string $attribute, string $rule, $params=[])
     {
         $message = $this->errorMessage()[$rule] ?? '';
         foreach ($params as $key => $value) {
@@ -104,7 +100,6 @@ abstract class Model
         $this->errors[$attribute][] = $message;
     }
 
-
     public function errorMessage()
     {
         return [
@@ -114,8 +109,8 @@ abstract class Model
             self::RULE_MAX => 'Max Length of this field must be {max}',
             self::RULE_MATCH => 'This field must be the same as {match}',
             self::RULE_UNIQUE => 'Record with this {field} already exists',
-            self::RULE_IMAGE_SIZE =>'image size is more than defined size of 2MB',
-            self::RULE_IMAGE_TYPE => 'only jpeg, jpg & png image formats are acceptable'
+            self::RULE_IMAGE_SIZE =>'image size is more than defined size of {max}',
+            self::RULE_IMAGE_TYPE => 'only {type} image formats are acceptable'
         ];
     }
     public function hasError($attribute){

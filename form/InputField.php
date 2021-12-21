@@ -31,8 +31,9 @@ class InputField extends BaseField
         return $this;
     }
 
-    public function imageField(){
-        $this->type =self::TYPE_IMAGE;
+
+    public function fileField(){
+        $this->type =self::TYPE_FILE;
         return $this;
     }
 
